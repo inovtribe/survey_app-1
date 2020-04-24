@@ -1,0 +1,6 @@
+/android/.idea
+/android/.gradle
+/android/local.properties
+/android/*.iml
+/android/.gitignore
+/build

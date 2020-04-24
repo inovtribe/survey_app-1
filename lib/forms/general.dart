@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:survey_js_core/model/element_survey.dart';
 import 'package:survey_js_core/model/page.dart';
 import 'package:survey_js_core/model/panel.dart';
@@ -50,7 +51,6 @@ class GeneralForm extends StatefulWidget {
 
 class GeneralFormState extends State<GeneralForm>{
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-  List<TextEditingController> controllerList;
 
   String formName, formDescription, numberOfQuestion, formBackground;
   var json;
@@ -165,7 +165,6 @@ class GeneralFormState extends State<GeneralForm>{
 
   List<Widget> bindFormData(List<PageModel> pages){
     List<Widget> widgets = [];
-    controllerList = [];
 
     for(int i=0; i<pages.length; i++){
       List<QuestionModel> questions = pages[i].element.questions;
@@ -216,8 +215,8 @@ class GeneralFormState extends State<GeneralForm>{
                     validators: (textQuestion.isRequired) ? [
                       FormBuilderValidators.required(
                         errorText: textQuestion.requiredErrorText),
-                      (textQuestion.inputType == "number")?FormBuilderValidators.numeric():FormBuilderValidators.max(textQuestion.maxLength)
-                    ] : [(textQuestion.inputType == "number")?FormBuilderValidators.numeric():FormBuilderValidators.max(textQuestion.maxLength)],
+                      if(textQuestion.inputType == "number") FormBuilderValidators.numeric()
+                    ] : [if(textQuestion.inputType == "number")FormBuilderValidators.numeric()],
                   ), textQuestion.isRequired
                     ? textQuestion.title + " *"
                     : textQuestion.title)));
@@ -436,7 +435,12 @@ class GeneralFormState extends State<GeneralForm>{
                 setState(() {
                   _autoValidate = true;
                 });
-
+                Fluttertoast.showToast(
+                  msg: "Please fill mendatory fields",
+                  gravity: ToastGravity.BOTTOM,
+                  toastLength: Toast.LENGTH_SHORT,
+                  backgroundColor: Colors.black,
+                  textColor: Colors.white);
                 print(_fbKey.currentState.value);
                 print("validation failed");
               }

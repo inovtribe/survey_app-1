@@ -17,9 +17,26 @@ void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      primaryColor: Colors.redAccent,
-      accentColor: Colors.green,
+      primaryColor: const Color(0xffFF7878),
+      accentColor: const Color(0xff861657),
       fontFamily: 'Caviar_Dreams_Bold',
+      buttonTheme: ButtonThemeData(
+
+      ),
+      appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: Colors.white
+        ),
+        textTheme: TextTheme(
+          title: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Caviar_Dreams_Bold',
+            fontSize: 20
+
+          )
+        )
+      )
     ),
     home: SplashScreen(),
     routes: routes,

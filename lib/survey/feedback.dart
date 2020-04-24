@@ -1,4 +1,6 @@
 
+import 'package:flutter/rendering.dart';
+
 class FeedBack{
   String formName;
   String formDescription;
@@ -260,16 +262,251 @@ class FeedBack{
     ]
   };
 
+
+  static var customerSatisfactionJson = {
+    "pages": [
+      {
+        "name": "page1",
+        "elements": [
+          {
+            "type": "radiogroup",
+            "name": "questionCompanyValue",
+            "title": "How much do you value our company??",
+            "isRequired": true,
+            "visible": true,
+            "requiredErrorText": "This question requires an answer",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+            ]
+          },
+          {
+            "type": "radiogroup",
+            "name": "questionRatePricing",
+            "title": "How would your rate our pricing?",
+            "isRequired": true,
+            "visible": true,
+            "requiredErrorText": "Select your answer",
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          {
+            "type": "radiogroup",
+            "name": "questionDescribeExecutive",
+            "title": "Describe our executives",
+            "isRequired": true,
+            "visible": true,
+            "requiredErrorText": "Select your answer ",
+            "choices": [
+              "Enjoyable",
+              "Happy",
+              "Irritating",
+              "Aggressive"
+            ]
+          },
+          {
+            "type": "radiogroup",
+            "name": "questionShareFriend",
+            "title": "Will you share your positive with your friends/colleagues?",
+            "isRequired": true,
+            "visible": true,
+            "requiredErrorText": "Select your answer",
+            "choices": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "type": "text",
+            "name": "questionComments",
+            "title": "Any other comments to share with us?",
+            "description": "Write Suggestion here",
+            "isRequired": false,
+            "visible": true,
+            "inputType": "text",
+            "maxLength": 500,
+          }
+        ]
+      }
+    ]
+  };
+
+  static var employeeStatisfactionJson = {
+    "pages": [
+      {
+        "name": "page1",
+        "elements": [
+          {
+            "type": "text",
+            "name": "questionEmpId",
+            "title": "Employee ID",
+            "description": "Emp Id here",
+            "isRequired": true,
+            "visible": true,
+            "inputType": "text",
+            "maxLength": 100,
+            "requiredErrorText": "Please write Employee ID",
+          },
+          {
+            "type": "dropdown",
+            "name": "questionDesignation",
+            "title": "Your Designation",
+            "description": "Select Designation",
+            "visible": true,
+            "isRequired": true,
+            "requiredErrorText": "Select your Designation",
+            "choices": [
+              "Executive",
+              "Functional",
+              "Junior",
+              "Senior"
+            ]
+          },
+          {
+            "type": "dropdown",
+            "name": "questionWithUs",
+            "title": "How long have you been associated with us?",
+            "description": "Select Duration",
+            "visible": true,
+            "isRequired": false,
+            "choices": [
+              "less than 1 Year",
+              "1 to 3 Years",
+              "3 to 5 Years",
+              "5 to 7 Years"
+            ]
+          },
+
+          {
+            "type": "radiogroup",
+            "name": "questionWorkEnjoy",
+            "title": "How adventurous and enjoyable is the work?",
+            "isRequired": false,
+            "visible": true,
+            "choices": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          {
+            "type": "radiogroup",
+            "name": "questionWorkSkill",
+            "title": "What's needed to improve your work skills?",
+            "isRequired": false,
+            "visible": true,
+            "choices": [
+              "Salary",
+              "Motivation",
+              "Guidance"
+            ]
+          },
+          {
+            "type": "radiogroup",
+            "name": "questionRelation",
+            "title": "Relationship of superior with you",
+            "isRequired": false,
+            "visible": true,
+            "choices": [
+              "Friendly",
+              "Autocratic",
+              "Democratic"
+            ]
+          },
+          {
+            "type": "text",
+            "name": "questionShareIdea",
+            "title": "Share your own needs/ideas to increase your interest in work?",
+            "description": "Write your ideas",
+            "isRequired": false,
+            "visible": true,
+            "inputType": "text",
+            "maxLength": 500,
+          }
+        ]
+      }
+    ]
+  };
+
+  static var meetingJson = {
+    "pages": [
+      {
+        "name": "page1",
+        "elements": [
+          {
+            "type": "radiogroup",
+            "name": "questionMeeting",
+            "title": "How was the meeting for you?",
+            "isRequired": true,
+            "visible": true,
+            "requiredErrorText": "This question requires an answer",
+            "choices": [
+              "Very Useful",
+              "Useful",
+              "Out of Topic~Bored",
+              "4",
+              "5",
+            ]
+          },
+          {
+            "type": "radiogroup",
+            "name": "questionComfortable",
+            "title": "Did you feel comfortable with the meeting infrastructure?",
+            "isRequired": false,
+            "visible": true,
+            "choices": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "type": "text",
+            "name": "questionTake",
+            "title": "What would you like to take with you?",
+            "description": "Write answer",
+            "isRequired": true,
+            "requiredErrorText": "Please write what you learnt from meeting",
+            "visible": true,
+            "inputType": "text",
+            "maxLength": 100,
+          },
+          {
+            "type": "text",
+            "name": "questionComments",
+            "title": "Any other comments?",
+            "description": "Write comments",
+            "isRequired": false,
+            "visible": true,
+            "inputType": "text",
+            "maxLength": 500,
+          },
+
+        ]
+      }
+    ]
+  };
+
+
   FeedBack({this.formName, this.formDescription, this.formBackground, this.numberOfQuestion, this.json});
 
   static final feedBackItem = [
-    FeedBack(formName: "Contact Form", formBackground: ('assets/images/contact-form-background.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "6", json: surveyJson),
-    FeedBack(formName: "Customer Feedback Form", formBackground: ('assets/images/medical_report.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "7", json: customerFeedbackJson),
-    FeedBack(formName: "Customer Satisfaction", formBackground: ('assets/images/online_survey.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "4", json: surveyJson),
-    FeedBack(formName: "Employee Satisfaction", formBackground: ('assets/images/iphone_and_ipad_wallpaper.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "8", json: surveyJson),
+   /* FeedBack(formName: "Contact Form", formBackground: ('assets/images/contact-form-background.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "6", json: surveyJson),*/
+    FeedBack(formName: "Customer Feedback Form", formBackground: ('assets/images/medical_report.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "8", json: customerFeedbackJson),
+    FeedBack(formName: "Customer Satisfaction", formBackground: ('assets/images/online_survey.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "5", json: customerSatisfactionJson),
+    FeedBack(formName: "Employee Satisfaction", formBackground: ('assets/images/iphone_and_ipad_wallpaper.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "7", json: employeeStatisfactionJson),
     FeedBack(formName: "General Event Feedback", formBackground: ('assets/images/medical_report.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "9", json: surveyJson),
-    FeedBack(formName: "General Meeting Feedback", formBackground: ('assets/images/check-list.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "5", json: surveyJson),
-    FeedBack(formName: "Instructor Feedback", formBackground: ('assets/images/report.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "6", json: surveyJson),
-    FeedBack(formName: "Job Application", formBackground: ('assets/images/StoreAuditChecklist.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "3", json: surveyJson),
+    FeedBack(formName: "General Meeting Feedback", formBackground: ('assets/images/check-list.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "4", json: meetingJson),
+   /* FeedBack(formName: "Instructor Feedback", formBackground: ('assets/images/report.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "6", json: surveyJson),
+    FeedBack(formName: "Job Application", formBackground: ('assets/images/StoreAuditChecklist.jpg'), formDescription: "Gather Contact Details", numberOfQuestion: "3", json: surveyJson),*/
   ];
 }

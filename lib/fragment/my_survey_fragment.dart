@@ -6,15 +6,50 @@ import 'package:surveyapp/database/db_helper.dart';
 import 'package:surveyapp/models/covid.dart';
 
 class MySurveyFragment extends StatefulWidget {
+  const MySurveyFragment({Key key}) : super(key: key);
+
   @override
-  _MySurveyFragmentState createState() => _MySurveyFragmentState();
+  MySurveyFragmentState createState() => MySurveyFragmentState();
+
 }
 
-class _MySurveyFragmentState extends State<MySurveyFragment> {
+class MySurveyFragmentState extends State<MySurveyFragment> {
+
+
 
   DatabaseHelper databaseHelper = DatabaseHelper();
   List<Covid> covidList;
   int count = 0;
+  var covidPatientList = List<Covid>();
+
+  updateFilter(String text){
+    print("updated Text: ${text}");
+    filterSearchResults(text);
+  }
+
+  void filterSearchResults(String query) {
+    List<Covid> dummySearchList = List<Covid>();
+    dummySearchList.addAll(covidList);
+    if(query.isNotEmpty) {
+      List<Covid> dummyListData = List<Covid>();
+      dummySearchList.forEach((item) {
+        if(item.nameOfMemberUnderScreening.toLowerCase().contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        covidPatientList.clear();
+        covidPatientList.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        covidPatientList.clear();
+        covidPatientList.addAll(covidList);
+        print("covidList: ${covidList.length}");
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +58,7 @@ class _MySurveyFragmentState extends State<MySurveyFragment> {
       covidList = List<Covid>();
       updateListView();
     }
+
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -32,10 +68,10 @@ class _MySurveyFragmentState extends State<MySurveyFragment> {
   }
 
   ListView getCovidListView(){
-    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    TextStyle titleStyle = TextStyle(fontWeight: FontWeight.bold);
 
     return ListView.builder(
-      itemCount: count,
+      itemCount: covidPatientList.length,
       itemBuilder: (BuildContext context, int position) {
         return Slidable(
           actionPane: SlidableDrawerActionPane(),
@@ -46,16 +82,19 @@ class _MySurveyFragmentState extends State<MySurveyFragment> {
               color: Colors.red,
               caption: "Delete",
               onTap: (){
-                _delete(context, this.covidList[position]);
+                _delete(context, this.covidPatientList[position]);
               },
             )
           ],
           child: ExpansionTile(
-            backgroundColor: (position % 2 == 0)?Colors.orangeAccent.withOpacity(0.9):Colors.green.withOpacity(0.9),
-            title: Text(this.covidList[position].nameOfMemberUnderScreening, style: titleStyle,),
+            backgroundColor: const Color(0xffFF7878),
+            title: Text(this.covidPatientList[position].nameOfMemberUnderScreening, style: titleStyle,),
             children: <Widget>[
-              Column(
-                children: _buildExpandableContent(this.covidList[position],position)
+              Container(
+                decoration: BoxDecoration(gradient: LinearGradient(colors: [const Color(0xffFF7878),const Color(0xffFCD181)])),
+                child: Column(
+                  children: _buildExpandableContent(this.covidPatientList[position],position)
+                ),
               )
             ]
           ),
@@ -66,7 +105,7 @@ class _MySurveyFragmentState extends State<MySurveyFragment> {
 
   _buildExpandableContent(Covid covid, int position) {
 
-    Color color = (position % 2 == 0)?Colors.black:Colors.white;
+    Color color = (position % 2 == 0)?Colors.white:Colors.black;
     TextStyle textStyle = TextStyle(
       color: color,
       fontWeight: FontWeight.bold,
@@ -104,7 +143,9 @@ class _MySurveyFragmentState extends State<MySurveyFragment> {
       noteListFuture.then((covidList) {
         setState(() {
           this.covidList = covidList;
-          this.count = covidList.length;
+          //this.count = covidList.length;
+          this.covidPatientList.clear();
+          this.covidPatientList.addAll(covidList);
         });
       });
     });
